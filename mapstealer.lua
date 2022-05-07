@@ -1,4 +1,4 @@
-script_author('Ghosty2004');
+script_author('Sami King');
 
 --[[ Modules ]]
 local ev = require('samp.events');
@@ -37,7 +37,7 @@ function main()
             table.insert(maps, "public OnFilterScriptInit()");
             table.insert(maps, "{");
 
-            table.insert(maps, "    new ghosty2004_map;");
+            table.insert(maps, "    new SamiKing_map;");
             for key, value in pairs(objects) do 
                 --[[ Objects ]]
                 if(value[1]) then
@@ -84,12 +84,12 @@ function main()
 
             SCM(string.format("Saved: %d objects, %d remove buildings, %d materials and %d materials text.", objects_count, remove_building_count, materials_count, materialstext_count));
             
-            local header = "/* ======================== */\n/* Ghosty2004's map stealer */\n/* ======================== */";
+            local header = "/* ======================== */\n/* Sami King's map stealer */\n/* ======================== */";
 
             local ip, port = sampGetCurrentServerAddress();
 
-            createDirectory("ghosty2004_mapstealer");
-            local file = io.open(string.format("ghosty2004_mapstealer\\%s_%d.txt", ip, port), "w");
+            createDirectory("SamiKing_mapstealer");
+            local file = io.open(string.format("SamiKing_mapstealer\\%s_%d.txt", ip, port), "w");
             file:write(string.format("\n%s\n\n%s", header, map));
             file:close();
 
@@ -154,7 +154,7 @@ end
 
 function ev.onCreateObject(objectId, data)
     if(mapstealer) then
-        local object_string = string.format("ghosty2004_map = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, %d, %f, %f);", data.modelId, data.position.x, data.position.y, data.position.z, data.rotation.x, data.rotation.y, data.rotation.z, -1, -1, -1, 400, 400);
+        local object_string = string.format("SamiKing_map = CreateDynamicObject(%d, %f, %f, %f, %f, %f, %f, %d, %d, %d, %f, %f);", data.modelId, data.position.x, data.position.y, data.position.z, data.rotation.x, data.rotation.y, data.rotation.z, -1, -1, -1, 400, 400);
         if(not checkIfThisObjectSrcExists(object_string)) then
             count = count + 1; 
             if(not objects[count]) then
@@ -181,7 +181,7 @@ function ev.onSetObjectMaterial(objectId, data)
         local index = temp_stream_data[objectId].index;
         if(index ~= -1 and index) then 
             if(objects[index]) then
-                local material_string = string.format("SetDynamicObjectMaterial(ghosty2004_map, %d, %d, \"%s\", \"%s\", %d);", data.materialId, data.modelId, data.libraryName, data.textureName, data.color);
+                local material_string = string.format("SetDynamicObjectMaterial(SamiKing_map, %d, %d, \"%s\", \"%s\", %d);", data.materialId, data.modelId, data.libraryName, data.textureName, data.color);
                 if(not isMaterialExists(index, material_string)) then 
                     if(not objects[index][2]) then objects[index][2] = {}; end
                     table.insert(objects[index][2], material_string);
@@ -210,12 +210,12 @@ end
 
 --[[ Functions ]]
 function SCM(text)
-    tag = '{FF5656}[Ghosty2004 Map Stealer]: ';
+    tag = '{FF5656}[Sami King Map Stealer]: ';
     sampAddChatMessage(tag .. text, -1);
 end
 
 function info(text, time) 
-    printStringNow(string.format("~r~~h~[Ghosty2004 Map Stealer] ~g~~h~%s", text), time)
+    printStringNow(string.format("~r~~h~[Sami King Map Stealer] ~g~~h~%s", text), time)
 end 
 
 function updateThisLabel(labelIndex)
